@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MealDBAssignment.ViewModels"
+             x:Class="MealDBAssignment.Views.MealCategoriesPage">
+
+    <ContentPage.BindingContext>
+        <viewmodels:MealCategoriesViewModel/>
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <ScrollView Orientation="Vertical">
+            <StackLayout Orientation="Vertical">
+                <StackLayout.Resources>
+                    <Style TargetType="Image">
+                        <Setter Property="HeightRequest" Value="100"/>
+                        <Setter Property="WidthRequest" Value="100"/>
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Aspect" Value="AspectFill"/>
+                        <Setter Property="VerticalOptions" Value="Center"/>
+                        <Setter Property="HorizontalOptions" Value="Center"/>
+                    </Style>
+                </StackLayout.Resources>
+                <CollectionView x:Name="mcatListView" ItemsSource="{Binding MealCategories}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame CornerRadius="5" HasShadow="True">
+                                <StackLayout>
+                                    <Image Source="{Binding strCategoryThumb}" Grid.Row="0" Aspect="AspectFit">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference mcatListView}, Path=BindingContext.ImageTappedCommand}" CommandParameter="{Binding strCategory}" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Label Text="{Binding strCategory}" HorizontalOptions="Center"/>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</ContentPage>
